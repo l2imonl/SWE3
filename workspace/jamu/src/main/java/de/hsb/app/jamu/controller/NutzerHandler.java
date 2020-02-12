@@ -72,6 +72,85 @@ public class NutzerHandler {
 		return "neuerNutzer";
 	}
 
+	public String speichern() {
+		try {
+			utx.begin();
+		} catch (NotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		merkeNutzer = em.merge(merkeNutzer);
+		em.persist(merkeNutzer);
+		nutzer.setWrappedData(em.createNamedQuery("SelectNutzer").getResultList());
+		try {
+			utx.commit();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RollbackException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (HeuristicMixedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (HeuristicRollbackException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "alleNutzer";
+	}
+	
+	public String delete() {
+		merkeNutzer = nutzer.getRowData();
+		System.out.println("Lösche Nutzer");
+		try {
+			utx.begin();
+		} catch (NotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		merkeNutzer = em.merge(merkeNutzer);
+		em.remove(merkeNutzer);
+		nutzer.setWrappedData(em.createNamedQuery("SelectNutzer").getResultList());
+		try {
+			utx.commit();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RollbackException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (HeuristicMixedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (HeuristicRollbackException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "alleNutzer";
+	}
+	
+	//Getter u. Setter
+	
 	public DataModel<Nutzer> getNutzer() {
 		return nutzer;
 	}

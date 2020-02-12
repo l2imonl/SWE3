@@ -1,14 +1,60 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:c="http://java.sun.com/jstl/core"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<title><ui:insert name="title">Jamu</ui:insert></title>
+	<title><ui:insert name="title">Kundenverwaltung</ui:insert></title>
+	<link rel="stylesheet" href="resources/styles.css" type="text/css" />
 </h:head>
 <h:body>
-	NEUER NUTZER
+	<div id="header">
+		<ui:insert name="header"></ui:insert>
+
+	</div>
+	<div id="content">
+		<ui:insert name="content">
+			<h:form>
+				<h:panelGrid var="nutzer" value="#{nutzer}" columnes="2"
+					headerClass="header" footerClass="footer">
+
+					<h:outputLabel value="Vorname:" for="vorname" />
+					<h:panelGroup>
+						<h:inputText id="vorname" required="true"
+							requiredMessage="Eingabe fehlt"
+							value="#{nutzerHandler.merkeNutzer.vorname}" />
+						<h:message for="vorname" styleClass="message" />
+					</h:panelGroup>
+
+					<h:outputLabel value="Nachname:" for="nachname" />
+					<h:panelGroup>
+						<h:inputText id="nachname" required="true"
+							requiredMessage="Eingabe fehlt"
+							value="#{nutzerHandler.merkeNutzer.nachname}" />
+						<h:message for="nachname" styleClass="message" />
+					</h:panelGroup>
+
+					<h:outputLabel value="E-Mail:" for="email" />
+					<h:panelGroup>
+						<h:inputText id="email" required="true"
+							requiredMessage="Eingabe fehlt"
+							value="#{nutzerHandler.merkeNutzer.email}" />
+						<h:message for="email" styleClass="message" />
+					</h:panelGroup>
+					<h:commandButton action="#{nutzerHandler.speichern()}"
+						value="Speichern" />
+				</h:panelGrid>
+			</h:form>
+		</ui:insert>
+	</div>
+	<div class="footer">
+		<ui:insert name="footer">
+			<p>© 2013 Hochschule Bremerhaven - Simon Böhm</p>
+		</ui:insert>
+	</div>
 </h:body>
 </html>

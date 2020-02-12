@@ -25,6 +25,12 @@
 			<f:facet name="header">Geburtsdatum</f:facet>
 			<h:outputText value="#{nutzer.email}" />
 		</h:column>
+		<h:column>
+			<f:facet name="header">löschen</f:facet>
+			<h:form>
+				<h:commandButton value="löschen" action="#{nutzerHandler.delete()}" />
+			</h:form>
+		</h:column>
 	</h:dataTable>
 
 	ALLE NUTZER
