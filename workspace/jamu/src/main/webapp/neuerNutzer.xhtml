@@ -22,7 +22,7 @@
 				<h:panelGrid var="nutzer" value="#{nutzer}" columnes="2"
 					headerClass="header" footerClass="footer">
 
-					<h:outputLabel value="Vorname:" for="vorname" />
+					<h:outputLabel value="#{msg.vorname}" for="vorname" />
 					<h:panelGroup>
 						<h:inputText id="vorname" required="true"
 							requiredMessage="Eingabe fehlt"
@@ -30,7 +30,7 @@
 						<h:message for="vorname" styleClass="message" />
 					</h:panelGroup>
 
-					<h:outputLabel value="Nachname:" for="nachname" />
+					<h:outputLabel value="#{msg.nachname}" for="nachname" />
 					<h:panelGroup>
 						<h:inputText id="nachname" required="true"
 							requiredMessage="Eingabe fehlt"
@@ -38,7 +38,7 @@
 						<h:message for="nachname" styleClass="message" />
 					</h:panelGroup>
 
-					<h:outputLabel value="E-Mail:" for="email" />
+					<h:outputLabel value="#{msg.email}" for="email" />
 					<h:panelGroup>
 						<h:inputText id="email" required="true"
 							requiredMessage="Eingabe fehlt"
@@ -46,15 +46,12 @@
 						<h:message for="email" styleClass="message" />
 					</h:panelGroup>
 					<h:commandButton action="#{nutzerHandler.speichern()}"
-						value="Speichern" />
+						value="#{msg.speichern}" />
 				</h:panelGrid>
 			</h:form>
 		</ui:insert>
 	</div>
 	<div class="footer">
-		<ui:insert name="footer">
-			<p>© 2013 Hochschule Bremerhaven - Simon Böhm</p>
-		</ui:insert>
 	</div>
 </h:body>
 </html>

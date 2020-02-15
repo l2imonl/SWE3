@@ -14,25 +14,23 @@
 		rowClasses="odd,even" headerClass="header">
 		<f:facet name="header">Nutzer</f:facet>
 		<h:column>
-			<f:facet name="header">Vorname</f:facet>
+			<f:facet name="header">#{msg.vorname}</f:facet>
 			<h:outputText value="#{nutzer.vorname}" />
 		</h:column>
 		<h:column>
-			<f:facet name="header">Nachname</f:facet>
+			<f:facet name="header">#{msg.nachname}</f:facet>
 			<h:outputText value="#{nutzer.nachname}" />
 		</h:column>
 		<h:column>
-			<f:facet name="header">Geburtsdatum</f:facet>
+			<f:facet name="header">#{msg.email}</f:facet>
 			<h:outputText value="#{nutzer.email}" />
 		</h:column>
 		<h:column>
-			<f:facet name="header">löschen</f:facet>
+			<f:facet name="header">#{msg.löschen}</f:facet>
 			<h:form>
-				<h:commandButton value="löschen" action="#{nutzerHandler.delete()}" />
+				<h:commandButton value="#{msg.löschen}" action="#{nutzerHandler.delete()}" />
 			</h:form>
 		</h:column>
 	</h:dataTable>
-
-	ALLE NUTZER
 </h:body>
 </html>
