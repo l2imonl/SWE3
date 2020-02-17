@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title><ui:insert name="title">Jamu</ui:insert></title>
+</h:head>
+
+<h:form>
+	<p:panelGrid id="grid" columns="2">
+		<f:facet name="header">Anmeldung</f:facet>
+		<p:outputLabel value="Username:" for="username" />
+		<h:panelGroup>
+			<p:inputText id="username" required="true"
+				value="#{loginHandler.username}" />
+			<p:message for="username" styleClass="message" />
+		</h:panelGroup>
+		<p:outputLabel value="Passwort:" for="passwort" />
+		<h:panelGroup>
+			<p:password id="passwort" required="true"
+				value="#{loginHandler.passwort}" />
+			<p:message for="passwort" styleClass="message" />
+		</h:panelGroup>
+		<h:panelGroup />
+		<p:commandButton action="#{loginHandler.login}" value="Login" />
+	</p:panelGrid>
+</h:form>
+</html>

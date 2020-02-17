@@ -14,19 +14,50 @@ public class Nutzer {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
-	String vorname;
-	String nachname;
-	String email;
+	private String username;
+	private String passwort;
+	private Rolle rolle;
+
+	private String vorname;
+	private String nachname;
+	private String email;
 
 	public Nutzer() {
 
 	}
 
-	public Nutzer(String vorname, String nachname, String email) {
+	public Nutzer(String username, String passwort, Rolle rolle, String vorname, String nachname, String email) {
 		super();
+		this.username = username;
+		this.passwort = passwort;
+		this.rolle = rolle;
 		this.vorname = vorname;
 		this.nachname = nachname;
 		this.email = email;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPasswort() {
+		return passwort;
+	}
+
+	public void setPasswort(String passwort) {
+		this.passwort = passwort;
+	}
+
+	public Rolle getRolle() {
+		return rolle;
+	}
+
+	public void setRolle(Rolle rolle) {
+		this.rolle = rolle;
 	}
 
 	public String getVorname() {

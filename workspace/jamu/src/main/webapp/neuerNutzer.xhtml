@@ -12,6 +12,7 @@
 	<link rel="stylesheet" href="resources/styles.css" type="text/css" />
 </h:head>
 <h:body>
+	<f:event listener="#{loginHandler.checkLoggedIn}" type="preRenderView" />
 	<div id="header">
 		<ui:insert name="header"></ui:insert>
 
@@ -51,7 +52,6 @@
 			</h:form>
 		</ui:insert>
 	</div>
-	<div class="footer">
-	</div>
+	<div class="footer"></div>
 </h:body>
 </html>

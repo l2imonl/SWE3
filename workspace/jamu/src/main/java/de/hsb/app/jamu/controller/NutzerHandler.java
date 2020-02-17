@@ -16,18 +16,20 @@ import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
 import de.hsb.app.jamu.model.Nutzer;
+import de.hsb.app.jamu.model.Rolle;
 
 @ManagedBean
 @SessionScoped
 public class NutzerHandler {
 
-	private DataModel<Nutzer> nutzer;
+	private DataModel<Nutzer> nutzerList;
 	private Nutzer merkeNutzer;
 	
 	@PersistenceContext
 	private EntityManager em;
 	@Resource
 	private UserTransaction utx;
+	
 	
 	@PostConstruct
 	public void init() {
@@ -40,10 +42,8 @@ public class NutzerHandler {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		em.persist(new Nutzer("Felix", "Blume", "boss@Aplha.com"));
-		em.persist(new Nutzer("Farid", "Hamed", "Banger@Musik.com"));
-		nutzer = new ListDataModel<Nutzer>();
-		nutzer.setWrappedData(em.createNamedQuery("SelectNutzer").getResultList());
+		nutzerList = new ListDataModel<Nutzer>();
+		nutzerList.setWrappedData(em.createNamedQuery("SelectNutzer").getResultList());
 		try {
 			utx.commit();
 		} catch (SecurityException e) {
@@ -85,7 +85,7 @@ public class NutzerHandler {
 
 		merkeNutzer = em.merge(merkeNutzer);
 		em.persist(merkeNutzer);
-		nutzer.setWrappedData(em.createNamedQuery("SelectNutzer").getResultList());
+		nutzerList.setWrappedData(em.createNamedQuery("SelectNutzer").getResultList());
 		try {
 			utx.commit();
 		} catch (SecurityException e) {
@@ -111,7 +111,7 @@ public class NutzerHandler {
 	}
 	
 	public String delete() {
-		merkeNutzer = nutzer.getRowData();
+		merkeNutzer = nutzerList.getRowData();
 		System.out.println("Lösche Nutzer");
 		try {
 			utx.begin();
@@ -124,7 +124,7 @@ public class NutzerHandler {
 		}
 		merkeNutzer = em.merge(merkeNutzer);
 		em.remove(merkeNutzer);
-		nutzer.setWrappedData(em.createNamedQuery("SelectNutzer").getResultList());
+		nutzerList.setWrappedData(em.createNamedQuery("SelectNutzer").getResultList());
 		try {
 			utx.commit();
 		} catch (SecurityException e) {
@@ -152,11 +152,11 @@ public class NutzerHandler {
 	//Getter u. Setter
 	
 	public DataModel<Nutzer> getNutzer() {
-		return nutzer;
+		return nutzerList;
 	}
 
 	public void setNutzer(DataModel<Nutzer> nutzer) {
-		this.nutzer = nutzer;
+		this.nutzerList = nutzer;
 	}
 
 	public Nutzer getMerkeNutzer() {
