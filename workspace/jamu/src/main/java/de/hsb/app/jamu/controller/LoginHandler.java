@@ -38,9 +38,15 @@ public class LoginHandler implements Serializable {
 	private UserTransaction utx;
 
 	@PostConstruct
-	public void init() {
-		try {
+	public void init() {	
+		try {			
 			utx.begin();
+			Query query = em.createQuery("Select n from Nutzer n");
+			List<Nutzer> nutzerList = query.getResultList();
+			System.out.println("AHHHHHHHHHHHH " + nutzerList.size());
+			if(nutzerList.size() == 0)
+				em.persist(new Nutzer("Admin","SafeAsShit",Rolle.ADMIN,"Big","Boss","boss@Aplha.com"));
+			utx.commit();
 		} catch (NotSupportedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -48,34 +54,15 @@ public class LoginHandler implements Serializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		em.persist(new Nutzer("Kolle", "King123", Rolle.NUTZER, "Felix", "Blume", "boss@Aplha.com"));
-		em.persist(new Nutzer("Farid Bang", "Bang", Rolle.NUTZER, "Farid", "Hamed", "Banger@Musik.com"));
-		try {
-			utx.commit();
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (RollbackException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (HeuristicMixedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (HeuristicRollbackException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SystemException e) {
-			// TODO Auto-generated catch block
+		catch(Exception e) {
 			e.printStackTrace();
 		}
+
 	}
 
 	public String login() {
 		Query query = em.createQuery("Select n from Nutzer n "
-				+ "where n.username= :username and n.passwort = :passwort " + "and n.rolle =" + Rolle.NUTZER.ordinal());
+				+ "where n.username= :username and n.passwort = :passwort " + "and n.rolle =" + Rolle.ADMIN.ordinal());
 		query.setParameter("username", username);
 		query.setParameter("passwort", passwort);
 
