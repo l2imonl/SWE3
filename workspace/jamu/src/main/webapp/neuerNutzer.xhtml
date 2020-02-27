@@ -13,6 +13,7 @@
 </h:head>
 <h:body>
 	<f:event listener="#{loginHandler.checkLoggedIn}" type="preRenderView" />
+	<f:event listener="#{loginHandler.isAdmin}" type="preRenderView" />
 	<div id="header">
 		<ui:insert name="header"></ui:insert>
 
@@ -46,8 +47,9 @@
 							value="#{nutzerHandler.merkeNutzer.email}" />
 						<h:message for="email" styleClass="message" />
 					</h:panelGroup>
-					<h:commandButton action="#{nutzerHandler.speichern()}"
-						value="#{msg.speichern}" />
+					<p:commandButton action="index" value="#{msg.abbrechen}" />
+					<p:commandButton action="#{nutzerHandler.speichern()}"
+						value="#{msg.speichern}" update="@form" />
 				</h:panelGrid>
 			</h:form>
 		</ui:insert>

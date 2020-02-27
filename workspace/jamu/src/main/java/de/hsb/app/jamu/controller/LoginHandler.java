@@ -38,14 +38,14 @@ public class LoginHandler implements Serializable {
 	private UserTransaction utx;
 
 	@PostConstruct
-	public void init() {	
-		try {			
+	public void init() {
+		try {
 			utx.begin();
 			Query query = em.createQuery("Select n from Nutzer n");
 			List<Nutzer> nutzerList = query.getResultList();
-			System.out.println("AHHHHHHHHHHHH " + nutzerList.size());
-			if(nutzerList.size() == 0)
-				em.persist(new Nutzer("Admin","SafeAsShit",Rolle.ADMIN,"Big","Boss","boss@Aplha.com"));
+			System.out.println("Nutzer: " + nutzerList.size());
+			if (nutzerList.size() == 0)
+				em.persist(new Nutzer("Admin", "SafeAsShit", Rolle.ADMIN, "Big", "Boss", "boss@Aplha.com"));
 			utx.commit();
 		} catch (NotSupportedException e) {
 			// TODO Auto-generated catch block
@@ -53,8 +53,7 @@ public class LoginHandler implements Serializable {
 		} catch (SystemException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -62,7 +61,7 @@ public class LoginHandler implements Serializable {
 
 	public String login() {
 		Query query = em.createQuery("Select n from Nutzer n "
-				+ "where n.username= :username and n.passwort = :passwort " + "and n.rolle =" + Rolle.ADMIN.ordinal());
+				+ "where n.username= :username and n.passwort = :passwort ");
 		query.setParameter("username", username);
 		query.setParameter("passwort", passwort);
 
@@ -81,6 +80,15 @@ public class LoginHandler implements Serializable {
 			context.getApplication().getNavigationHandler().handleNavigation(context, null,
 					"login.xhtml?faces-redirect=true");
 		}
+	}
+
+	public void isAdmin(ComponentSystemEvent cse) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		if (nutzer.getRolle() != Rolle.ADMIN) {
+			context.getApplication().getNavigationHandler().handleNavigation(context, null,
+					"index.xhtml?faces-redirect=true");
+		}
+
 	}
 
 	public String logout() {
@@ -112,6 +120,4 @@ public class LoginHandler implements Serializable {
 		this.nutzer = nutzer;
 	}
 
-	
-	
 }
