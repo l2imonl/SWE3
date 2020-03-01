@@ -69,7 +69,7 @@ public class LoginHandler implements Serializable {
 		List<Nutzer> nutzerList = query.getResultList();
 		if (nutzerList.size() == 1) {
 			nutzer = nutzerList.get(0);
-			return "/index.xhtml?faces-redirect=true";
+			return "/adminPage.xhtml?faces-redirect=true";
 		} else
 			return null;
 	}

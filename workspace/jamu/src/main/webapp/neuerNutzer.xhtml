@@ -42,12 +42,15 @@
 
 					<h:outputLabel value="#{msg.email}" for="email" />
 					<h:panelGroup>
-						<h:inputText id="email" required="true"
-							requiredMessage="Eingabe fehlt"
-							value="#{nutzerHandler.merkeNutzer.email}" />
-						<h:message for="email" styleClass="message" />
+						<h:inputText id="email" value="#{nutzerHandler.merkeNutzer.email}"
+							required="true" label="Email"
+							validatorMessage="#{nutzerHandler.merkeNutzer.email} is not valid">
+							<f:validateRegex
+								pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+						</h:inputText>
+						<p:message for="email" />
 					</h:panelGroup>
-					<p:commandButton action="index" value="#{msg.abbrechen}" />
+					<p:commandButton action="index.xhtml" value="#{msg.abbrechen}" />
 					<p:commandButton action="#{nutzerHandler.speichern()}"
 						value="#{msg.speichern}" update="@form" />
 				</h:panelGrid>

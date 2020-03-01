@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title><ui:insert name="title">Jamu</ui:insert></title>
+</h:head>
+<h:body>
+	<h:form>
+		<h:form>
+			<h:panelGrid var="nutzer" value="#{nutzer}" columnes="2"
+				headerClass="header" footerClass="footer">
+
+				<h:outputLabel value="#{msg.nutzername}" for="nutzername" />
+				<h:panelGroup>
+					<h:inputText id="nutzername" required="true"
+						requiredMessage="Eingabe fehlt"
+						value="#{registerHandler.neuerNutzer.username}" />
+					<h:message for="vorname" styleClass="message" />
+				</h:panelGroup>
+				
+				<h:outputLabel value="#{msg.passwort}" for="passwort" />
+				<h:panelGroup>
+					<h:inputText id="passwort" required="true"
+						requiredMessage="Eingabe fehlt"
+						value="#{registerHandler.neuerNutzer.passwort}" />
+					<h:message for="passwort" styleClass="message" />
+				</h:panelGroup>
+
+				<h:outputLabel value="#{msg.vorname}" for="vorname" />
+				<h:panelGroup>
+					<h:inputText id="vorname" required="true"
+						requiredMessage="Eingabe fehlt"
+						value="#{registerHandler.neuerNutzer.vorname}" />
+					<h:message for="vorname" styleClass="message" />
+				</h:panelGroup>
+
+				<h:outputLabel value="#{msg.nachname}" for="nachname" />
+				<h:panelGroup>
+					<h:inputText id="nachname" required="true"
+						requiredMessage="Eingabe fehlt"
+						value="#{registerHandler.neuerNutzer.nachname}" />
+					<h:message for="nachname" styleClass="message" />
+				</h:panelGroup>
+
+				<h:outputLabel value="#{msg.email}" for="email" />
+				<h:panelGroup>
+					<h:inputText id="email" value="#{registerHandler.neuerNutzer.email}"
+						required="true" label="Email"
+						validatorMessage="#{registerHandler.neuerNutzer.email} is not valid">
+						<f:validateRegex
+							pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+					</h:inputText>
+					<p:message for="email" />
+				</h:panelGroup>
+				<p:commandButton action="#{registerHandler.register()}"
+					value="#{msg.registrieren}"/>
+			</h:panelGrid>
+		</h:form>
+	</h:form>
+</h:body>
+</html>

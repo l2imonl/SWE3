@@ -11,11 +11,10 @@
 </h:head>
 <h:body>
 	<f:event listener="#{loginHandler.checkLoggedIn}" type="preRenderView" />
+	NUTZER PAGE
 	<h:form>
-		<h:commandButton action="#{nutzerHandler.neu()}"
-			value="#{msg.neuerNutzer}" />
 		<h:commandButton action="alleNutzer" value="#{msg.alleNutzer}" />
-		<h:commandButton action="adminPage" value="Admin" />
+		<h:commandButton action="#{loginHandler.logout()}" value="#{msg.logout}" />
 	</h:form>
 </h:body>
 </html>
