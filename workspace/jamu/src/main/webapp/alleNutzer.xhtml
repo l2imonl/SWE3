@@ -11,29 +11,34 @@
 </h:head>
 <h:body>
 	<f:event listener="#{loginHandler.checkLoggedIn}" type="preRenderView" />
-	<h:dataTable var="nutzer" value="#{nutzerHandler.nutzer}"
-		rowClasses="odd,even" headerClass="header">
-		<f:facet name="header">Nutzer</f:facet>
-		<h:column>
-			<f:facet name="header">#{msg.vorname}</f:facet>
-			<h:outputText value="#{nutzer.vorname}" />
-		</h:column>
-		<h:column>
-			<f:facet name="header">#{msg.nachname}</f:facet>
-			<h:outputText value="#{nutzer.nachname}" />
-		</h:column>
-		<h:column>
-			<f:facet name="header">#{msg.email}</f:facet>
-			<h:outputText value="#{nutzer.email}" />
-		</h:column>
-		<h:column>
-			<f:facet name="header">#{msg.löschen}</f:facet>
-			<h:form>
-				<h:commandButton value="#{msg.löschen}"
-					action="#{nutzerHandler.delete()}" />
-			</h:form>
-		</h:column>
-	</h:dataTable>
-	<p:commandButton value="#{msg.index}" action="index"/>
+
+	<h:form>
+		<p:dataTable var="nutzer" value="#{nutzerHandler.nutzer}"
+			style="margin-bottom:40px">
+			<f:facet name="header">
+            Alle Nutzer
+        </f:facet>
+
+			<p:column headerText="Id" sortBy="#{nutzer.id}">
+				<h:outputText value="#{nutzer.id}" />
+			</p:column>
+
+			<p:column headerText="Vorname" sortBy="#{nutzer.vorname}">
+				<h:outputText value="#{nutzer.vorname}" />
+			</p:column>
+
+			<p:column headerText="Nachname" sortBy="#{nutzer.nachname}">
+				<h:outputText value="#{nutzer.nachname}" />
+			</p:column>
+
+			<p:column headerText="Email" sortBy="#{nutzer.email}">
+				<h:outputText value="#{nutzer.email}" />
+			</p:column>
+		</p:dataTable>
+	</h:form>
+
+	<h:form>
+		<h:commandButton value="#{msg.zurück}" action="adminPage" />
+	</h:form>
 </h:body>
 </html>

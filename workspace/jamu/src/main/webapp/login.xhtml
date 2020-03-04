@@ -13,13 +13,13 @@
 <h:form>
 	<p:panelGrid id="grid" columns="2">
 		<f:facet name="header">Anmeldung</f:facet>
-		<p:outputLabel value="Username:" for="username" />
+		<p:outputLabel value="#{msg.nutzername}:" for="username" />
 		<h:panelGroup>
 			<p:inputText id="username" required="true"
 				value="#{loginHandler.username}" />
 			<p:message for="username" styleClass="message" />
 		</h:panelGroup>
-		<p:outputLabel value="Passwort:" for="passwort" />
+		<p:outputLabel value="#{msg.passwort}:" for="passwort" />
 		<h:panelGroup>
 			<p:password id="passwort" required="true"
 				value="#{loginHandler.passwort}" />
@@ -28,6 +28,6 @@
 		<h:panelGroup />
 		<p:commandButton action="#{loginHandler.login}" value="Login" />
 	</p:panelGrid>
-	<p:commandButton action="#{nutzerHandler.register()}" value="#{msg.registrieren}"/>
+	<p:commandButton action="registrierung" value="#{msg.registrieren}"/>
 </h:form>
 </html>

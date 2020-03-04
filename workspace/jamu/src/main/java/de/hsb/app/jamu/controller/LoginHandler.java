@@ -25,7 +25,7 @@ import de.hsb.app.jamu.model.Rolle;
 
 @ManagedBean
 @SessionScoped
-public class LoginHandler implements Serializable {
+public class LoginHandler implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	private String username;
@@ -95,7 +95,7 @@ public class LoginHandler implements Serializable {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		return "/login.xhtml?faces -redirect=true";
 	}
-
+	
 	public String getUsername() {
 		return username;
 	}

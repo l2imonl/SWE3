@@ -50,10 +50,12 @@
 						</h:inputText>
 						<p:message for="email" />
 					</h:panelGroup>
-					<p:commandButton action="index.xhtml" value="#{msg.abbrechen}" />
 					<p:commandButton action="#{nutzerHandler.speichern()}"
 						value="#{msg.speichern}" update="@form" />
 				</h:panelGrid>
+			</h:form>
+			<h:form>
+				<h:commandButton action="adminPage" value="#{msg.abbrechen}" />
 			</h:form>
 		</ui:insert>
 	</div>

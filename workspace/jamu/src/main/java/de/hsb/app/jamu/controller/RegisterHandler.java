@@ -105,7 +105,7 @@ public class RegisterHandler implements Serializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "alleNutzer";
+		return "login";
 	}
 
 	public DataModel<Nutzer> getNutzerList() {

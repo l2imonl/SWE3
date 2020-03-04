@@ -13,7 +13,7 @@
 	<f:event listener="#{loginHandler.checkLoggedIn}" type="preRenderView" />
 	<f:event listener="#{loginHandler.isAdmin}" type="preRenderView" />
 	
-	ADMIN
+	ADMIN: #{loginHandler.nutzer.vorname} #{loginHandler.nutzer.nachname}
 	<h:form>
 		<h:commandButton action="#{nutzerHandler.neu()}"
 			value="#{msg.neuerNutzer}" />

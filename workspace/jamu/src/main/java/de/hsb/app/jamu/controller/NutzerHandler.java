@@ -70,11 +70,6 @@ public class NutzerHandler {
 		merkeNutzer = new Nutzer();
 		return "neuerNutzer";
 	}
-
-	public String register() {
-		merkeNutzer = new Nutzer();
-		return "registrierung";
-	}
 	
 	public String speichern() {
 		try {
