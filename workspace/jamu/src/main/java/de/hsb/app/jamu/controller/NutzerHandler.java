@@ -109,7 +109,7 @@ public class NutzerHandler {
 		return "alleNutzer";
 	}
 	
-	public String delete() {
+	public void delete() {
 		merkeNutzer = nutzerList.getRowData();
 		System.out.println("Lösche Nutzer");
 		try {
@@ -145,7 +145,11 @@ public class NutzerHandler {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "alleNutzer";
+	}
+	
+	public String edit() {
+		merkeNutzer = nutzerList.getRowData();
+		return "neuerNutzer?faces-redirect=true"; 
 	}
 	
 	//Getter u. Setter

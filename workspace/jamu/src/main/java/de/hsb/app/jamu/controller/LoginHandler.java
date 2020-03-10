@@ -46,6 +46,7 @@ public class LoginHandler implements Serializable{
 			System.out.println("Nutzer: " + nutzerList.size());
 			if (nutzerList.size() == 0)
 				em.persist(new Nutzer("Admin", "SafeAsShit", Rolle.ADMIN, "Big", "Boss", "boss@Aplha.com"));
+				em.persist(new Nutzer("test", "test", Rolle.NUTZER, "test", "test", "test"));
 			utx.commit();
 		} catch (NotSupportedException e) {
 			// TODO Auto-generated catch block

@@ -8,16 +8,27 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<title><ui:insert name="title">Kundenverwaltung</ui:insert></title>
-	<link rel="stylesheet" href="resources/styles.css" type="text/css" />
+	<title><ui:insert name="title">Jamu</ui:insert></title>
+	<h:outputStylesheet name="primeicons/primeicons.css"
+		library="primefaces" />
+
 </h:head>
 <h:body>
 	<f:event listener="#{loginHandler.checkLoggedIn}" type="preRenderView" />
 	<f:event listener="#{loginHandler.isAdmin}" type="preRenderView" />
-	<div id="header">
-		<ui:insert name="header"></ui:insert>
-
-	</div>
+	
+	<p:tabMenu activeIndex="#{param.i}">
+		<p:menuitem value="#{msg.übersicht}" outcome="adminPage">
+			<f:param name="i" value="0" />
+		</p:menuitem>
+		<p:menuitem value="#{msg.alleNutzer}" outcome="alleNutzer">
+			<f:param name="i" value="1" />
+		</p:menuitem>
+		<p:menuitem value="#{msg.neuerNutzer}" outcome="neuerNutzer">
+			<f:param name="i" value="2" />
+		</p:menuitem>
+	</p:tabMenu>
+	
 	<div id="content">
 		<ui:insert name="content">
 			<h:form>
@@ -39,6 +50,22 @@
 							value="#{nutzerHandler.merkeNutzer.nachname}" />
 						<h:message for="nachname" styleClass="message" />
 					</h:panelGroup>
+					
+					<h:outputLabel value="#{msg.nutzername}" for="nutzername" />
+					<h:panelGroup>
+						<h:inputText id="nutzername" required="true"
+							requiredMessage="Eingabe fehlt"
+							value="#{nutzerHandler.merkeNutzer.username}" />
+						<h:message for="nutzername" styleClass="message" />
+					</h:panelGroup>
+					
+					<h:outputLabel value="#{msg.passwort}" for="passwort" />
+					<h:panelGroup>
+						<h:inputText id="passwort" required="true"
+							requiredMessage="Eingabe fehlt"
+							value="#{nutzerHandler.merkeNutzer.passwort}" />
+						<h:message for="passwort" styleClass="message" />
+					</h:panelGroup>
 
 					<h:outputLabel value="#{msg.email}" for="email" />
 					<h:panelGroup>
@@ -53,9 +80,6 @@
 					<p:commandButton action="#{nutzerHandler.speichern()}"
 						value="#{msg.speichern}" update="@form" />
 				</h:panelGrid>
-			</h:form>
-			<h:form>
-				<h:commandButton action="adminPage" value="#{msg.abbrechen}" />
 			</h:form>
 		</ui:insert>
 	</div>
