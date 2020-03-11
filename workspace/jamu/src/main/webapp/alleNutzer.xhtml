@@ -20,7 +20,7 @@
 		<p:menuitem value="#{msg.übersicht}" outcome="adminPage">
 			<f:param name="i" value="0" />
 		</p:menuitem>
-		<p:menuitem value="#{msg.alleNutzer}" outcome="alleNutzer">
+		<p:menuitem value="#{msg.alleNutzer}" outcome="#{nutzerHandler.all()}">
 			<f:param name="i" value="1" />
 		</p:menuitem>
 		<p:menuitem value="#{msg.neuerNutzer}" outcome="#{nutzerHandler.neu()}">

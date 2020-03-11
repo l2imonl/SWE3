@@ -1,5 +1,7 @@
 package de.hsb.app.jamu.controller;
 
+import java.io.Serializable;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.faces.bean.ManagedBean;
@@ -20,7 +22,7 @@ import de.hsb.app.jamu.model.Rolle;
 
 @ManagedBean
 @SessionScoped
-public class NutzerHandler {
+public class NutzerHandler implements Serializable{
 
 	private DataModel<Nutzer> nutzerList;
 	private Nutzer merkeNutzer;
@@ -64,6 +66,42 @@ public class NutzerHandler {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public String all() {
+		try {
+			utx.begin();
+		} catch (NotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		nutzerList = new ListDataModel<Nutzer>();
+		nutzerList.setWrappedData(em.createNamedQuery("SelectNutzer").getResultList());
+		try {
+			utx.commit();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RollbackException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (HeuristicMixedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (HeuristicRollbackException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return "alleNutzer";
 	}
 	
 	public String neu() {
