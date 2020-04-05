@@ -11,7 +11,8 @@
 	</h:head>
 	<h:body>
 		<h:form>
-			<p:fileUpload fileUploadListener="#{musikUploadHandler.handleFileUpload}" multiple="true" update="messages" allowTypes="/(\.|\/)(mp3)$/" />
+			<p:fileUpload value="#{musikUploadHandler.trackFile}" mode="advanced" 
+			fileUploadListener="#{musikUploadHandler.handleFileUpload}" multiple="true" update="messages" allowTypes="/(\.|\/)(mp3)$/" />
 			<p:growl id="messages" showDetail="true" />
 		</h:form>
 	</h:body>
