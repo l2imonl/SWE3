@@ -79,6 +79,42 @@ public class MusikUploadHandler implements Serializable {
 			e.printStackTrace();
 		}
 	}
+	
+	public String all() {
+		try {
+			utx.begin();
+		} catch (NotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		musikList = new ListDataModel<Musik>();
+		musikList.setWrappedData(em.createNamedQuery("SelectMusik").getResultList());
+		try {
+			utx.commit();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RollbackException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (HeuristicMixedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (HeuristicRollbackException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return "alleMusik";
+	}
 
 	public void handleFileUpload(FileUploadEvent event) {
 		this.trackFile = event.getFile();
@@ -102,7 +138,9 @@ public class MusikUploadHandler implements Serializable {
 		}
 	
 		neueMusik.setTitel(trackName);
-		neueMusik.setKuenstler(nutzer.getUsername());
+//		neueMusik.setKuenstler(nutzer.getUsername());
+		System.out.println(nutzer.getUsername());
+		neueMusik.setKuenstler(null);
 		neueMusik.setAlbum(null);
 		neueMusik.setPfad(dataDir + File.separator + musikDir + File.separator + trackName);
 		
