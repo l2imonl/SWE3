@@ -10,9 +10,10 @@
 		<title>Musik Upload</title>
 	</h:head>
 	<h:body>
+	<f:event listener="#{loginHandler.checkLoggedIn}" type="preRenderView" />
 		<h:form>
 			<p:fileUpload value="#{musikUploadHandler.trackFile}" mode="advanced" 
-			fileUploadListener="#{musikUploadHandler.handleFileUpload}" multiple="true" update="messages" allowTypes="/(\.|\/)(mp3)$/" />
+			fileUploadListener="#{musikUploadHandler.handleFileUpload}" multiple="true" update="messages" allowTypes="/(\.|\/)(mp3)$/"/>
 			<p:growl id="messages" showDetail="true" />
 		</h:form>
 	</h:body>

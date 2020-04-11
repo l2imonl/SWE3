@@ -7,12 +7,41 @@
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:p="http://primefaces.org/ui">
 	<h:head>
-		<title>Musik Upload</title>
+		<title><ui:insert name="title">Jamu - Player</ui:insert></title>
+		<h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+		<h:outputScript library="js" name="songLaden.js" />
 	</h:head>
 	<h:body>
-		 <audio controls="controls">
-  			<source src="/musik/Wakka Wakka.mp3" type="audio/mpeg"></source>
-			Das Format wird vom Browser nicht unterstützt
-		</audio>
+		<f:event listener="#{loginHandler.checkLoggedIn}" type="preRenderView" />
+		<h:form>	
+		<p:dataTable var="musik" value="#{playerHandler.musik}" paginator="true" rows="25" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10, 25, 50">
+			<f:facet name="header">
+            #{msg.alleSongs}
+       		</f:facet>
+       		<p:column headerText="#{msg.play}">
+				<h:commandButton value="&#9658;" type="button" onclick="songLaden('#{musik.jsWebPfad}');"/>
+			</p:column>
+
+			<p:column headerText="Id" sortBy="#{musik.id}">
+				<h:outputText value="#{musik.id}" />
+			</p:column>
+
+			<p:column headerText="#{msg.titel}" sortBy="#{musik.titel}">
+				<h:outputText value="#{musik.titel}" />
+			</p:column>
+
+			<p:column headerText="#{msg.kuenstler}" sortBy="#{musik.kuenstler}">
+				<h:outputText value="#{musik.kuenstler}" />
+			</p:column>
+
+			<p:column headerText="#{msg.album}" sortBy="#{musik.album}">
+				<h:outputText value="#{musik.album}" />
+			</p:column>
+		</p:dataTable>
+	</h:form>
 	</h:body>
+	<audio id="player" controls="controls">
+		<source id="mp3Source" src="" type="audio/mp3"/>
+		Das Format wird vom Browser nicht unterstützt 
+	</audio>
 </html>

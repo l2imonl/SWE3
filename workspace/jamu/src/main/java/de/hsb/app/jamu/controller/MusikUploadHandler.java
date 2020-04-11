@@ -15,28 +15,39 @@ import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
+
+import com.mpatric.mp3agic.ID3v1;
+import com.mpatric.mp3agic.ID3v2;
+import com.mpatric.mp3agic.InvalidDataException;
+import com.mpatric.mp3agic.Mp3File;
+import com.mpatric.mp3agic.UnsupportedTagException;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.faces.application.FacesMessage;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 
 import de.hsb.app.jamu.model.Musik;
-import de.hsb.app.jamu.model.Nutzer;
 
 @ManagedBean
 @ViewScoped
 public class MusikUploadHandler implements Serializable {
-	
 	private DataModel<Musik> musikList;
 	private Musik neueMusik;
-	private Nutzer nutzer;
 	
-	UploadedFile trackFile;
+	UploadedFile musikDatei;
+	
+	// Anlegen der benoetigten Pfade
+	final static String dataDir = System.getProperty("jboss.server.data.dir");
+	final static String musikDir = "musikOrdner";
+	final static File musikOrdner = new File(dataDir + File.separator + musikDir);
+    
 	
 	@PersistenceContext
 	private EntityManager em;
@@ -46,6 +57,7 @@ public class MusikUploadHandler implements Serializable {
 	@PostConstruct
 	public void init() {
 		neueMusik = new Musik();
+		
 		try {
 			utx.begin();
 		} catch (NotSupportedException e) {
@@ -55,129 +67,93 @@ public class MusikUploadHandler implements Serializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		musikList = new ListDataModel<Musik>();
 		musikList.setWrappedData(em.createNamedQuery("SelectMusik").getResultList());
-		try {
-			utx.commit();
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (RollbackException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (HeuristicMixedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (HeuristicRollbackException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SystemException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	public String all() {
-		try {
-			utx.begin();
-		} catch (NotSupportedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SystemException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		musikList = new ListDataModel<Musik>();
-		musikList.setWrappedData(em.createNamedQuery("SelectMusik").getResultList());
-		try {
-			utx.commit();
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (RollbackException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (HeuristicMixedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (HeuristicRollbackException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SystemException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
-		return "alleMusik";
+		
+		
+			try {
+				utx.commit();
+			} catch (SecurityException | IllegalStateException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SystemException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
 	}
 
 	public void handleFileUpload(FileUploadEvent event) {
-		this.trackFile = event.getFile();
-		String trackName = event.getFile().getFileName();
-		String dataDir = System.getProperty("jboss.server.data.dir");
-		String musikDir = "musikOrdner";
-		File musikOrdner = new File(dataDir + File.separator + musikDir);
-        musikOrdner.mkdirs();
+		//Ordner erstellen, falls nicht vorhanden
+		musikOrdner.mkdirs();
+		
+		Mp3File mp3file = null;
+		
+		this.musikDatei = event.getFile();
+		String musikDateiName = event.getFile().getFileName();
+		String zielDateiPfad = musikOrdner + File.separator + musikDateiName;
 		
 		// Upload Erfolgsmessage
-		FacesMessage uploadErfolgMessage = new FacesMessage("Erfolg:", trackName + " wurde hochgeladen.");
+		FacesMessage uploadErfolgMessage = new FacesMessage("Erfolg:", musikDateiName + " wurde hochgeladen.");
 		FacesContext.getCurrentInstance().addMessage(null, uploadErfolgMessage);
 		
 		// Musik schreiben
 		try {
-			File f = new File(musikOrdner, trackName);
-			FileUtils.writeByteArrayToFile(f, trackFile.getContents());
+			File zielDatei = new File(musikOrdner, musikDateiName);
+			FileUtils.writeByteArrayToFile(zielDatei, musikDatei.getContents());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
-		neueMusik.setTitel(trackName);
-//		neueMusik.setKuenstler(nutzer.getUsername());
-		System.out.println(nutzer.getUsername());
-		neueMusik.setKuenstler(null);
-		neueMusik.setAlbum(null);
-		neueMusik.setPfad(dataDir + File.separator + musikDir + File.separator + trackName);
 		
-		// DB Shit
+		try {
+			mp3file = new Mp3File(zielDateiPfad);
+		} catch (UnsupportedTagException | InvalidDataException | IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		
+		// Metadaten extrahieren und setten
+		metaDatenHandler(mp3file, musikDateiName);
+		
 		try {
 			utx.begin();
-		} catch (NotSupportedException e) {
+		} catch (NotSupportedException | SystemException e1) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SystemException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e1.printStackTrace();
 		}
+		
 		neueMusik = em.merge(neueMusik);
 		em.persist(neueMusik);
 		musikList.setWrappedData(em.createNamedQuery("SelectMusik").getResultList());
+		
 		try {
 			utx.commit();
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (RollbackException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (HeuristicMixedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (HeuristicRollbackException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SystemException e) {
+		} catch (SecurityException | IllegalStateException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SystemException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void metaDatenHandler(Mp3File mp3file, String musikDateiName) {
+		if (mp3file.hasId3v2Tag()) {
+			ID3v2 id3v2Tag = mp3file.getId3v2Tag();
+			neueMusik.setTitel(id3v2Tag.getTitle());
+			neueMusik.setKuenstler(id3v2Tag.getArtist());
+			neueMusik.setAlbum(id3v2Tag.getAlbum());
+		}
+		
+		else if (mp3file.hasId3v1Tag()) {
+			ID3v1 id3v1Tag = mp3file.getId3v1Tag();
+			neueMusik.setTitel(id3v1Tag.getTitle());
+			neueMusik.setKuenstler(id3v1Tag.getArtist());
+			neueMusik.setAlbum(id3v1Tag.getAlbum());
+		}
+		
+		else {
+			neueMusik.setTitel(FilenameUtils.removeExtension(musikDateiName));
+			neueMusik.setKuenstler(null);
+			neueMusik.setAlbum(null);
+			}
+		neueMusik.setJsWebPfad("/musik/" + musikDateiName);
 	}
 	
 	// Getter und Setter

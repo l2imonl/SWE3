@@ -17,18 +17,18 @@ public class Musik {
 	private String titel;
 	private String kuenstler;
 	private String album;
-	private String pfad;
+	private String jsWebPfad;
 
 	public Musik() {
 
 	}
 
-	public Musik(String titel, String kuenstler, String album, String pfad) {
+	public Musik(String titel, String kuenstler, String album, String jsWebPfad) {
 		super();
 		this.titel = titel;
 		this.kuenstler = kuenstler;
 		this.album = album;
-		this.pfad = pfad;
+		this.jsWebPfad = jsWebPfad;
 	}
 
 	// Getter und Setter
@@ -63,12 +63,12 @@ public class Musik {
 	public void setAlbum(String album) {
 		this.album = album;
 	}
-
-	public String getPfad() {
-		return pfad;
+	
+	public String getJsWebPfad() {
+		return jsWebPfad;
 	}
 
-	public void setPfad(String pfad) {
-		this.pfad = pfad;
+	public void setJsWebPfad(String jsWebPfad) {
+		this.jsWebPfad = jsWebPfad;
 	}
 }
