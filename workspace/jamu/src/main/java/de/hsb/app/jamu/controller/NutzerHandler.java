@@ -208,5 +208,7 @@ public class NutzerHandler implements Serializable{
 		this.merkeNutzer = merkeNutzer;
 	}
 	
-	
+	public Rolle[] getRolelValues() {
+		return Rolle.values();
+	}
 }

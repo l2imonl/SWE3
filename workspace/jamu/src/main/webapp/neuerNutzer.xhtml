@@ -77,6 +77,17 @@
 						</h:inputText>
 						<p:message for="email" />
 					</h:panelGroup>
+					
+					<h:outputLabel value="Rolle" for="rolle" />
+					<h:panelGroup>
+						<h:selectOneMenu id="rolle" required="true"
+							requiredMessage="Eingabe fehlt"
+							value="#{nutzerHandler.merkeNutzer.rolle}">
+							<f:selectItems var="form" value="#{nutzerHandler.rolelValues}"/>
+							</h:selectOneMenu>
+						<h:message for="rolle" styleClass="message" />
+					</h:panelGroup>
+					
 					<p:commandButton action="#{nutzerHandler.speichern()}"
 						value="#{msg.speichern}" update="@form" />
 				</h:panelGrid>
