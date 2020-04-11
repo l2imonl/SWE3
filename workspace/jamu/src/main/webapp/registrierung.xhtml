@@ -58,11 +58,12 @@
 						pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
 				</h:inputText>
 				<p:message for="email" />
-			</h:panelGroup>
-			<p:commandButton action="#{registerHandler.register()}"
-				value="#{msg.registrieren}" />
+			</h:panelGroup>		
 		</h:panelGrid>
+		<p:commandButton action="#{registerHandler.register()}"
+				value="#{msg.registrieren}" />
 	</h:form>
+
 	<h:form>
 		<h:commandButton action="login" value="#{msg.abbrechen}" />
 	</h:form>

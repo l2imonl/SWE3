@@ -16,7 +16,7 @@ public class Nutzer {
 
 	private String username;
 	private String passwort;
-	private Rolle rolle;
+	private Rolle rolle = Rolle.NUTZER;
 
 	private String vorname;
 	private String nachname;

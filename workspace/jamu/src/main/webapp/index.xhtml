@@ -14,7 +14,13 @@
 </h:head>
 <h:body>
 	<f:event listener="#{loginHandler.checkLoggedIn}" type="preRenderView" />
-	Willkommen #{loginHandler.nutzer.username}
+	
+	<p:tabMenu activeIndex="#{param.i}">
+		<p:menuitem value="#{msg.übersicht}" outcome="adminPage">
+			<f:param name="i" value="0" />
+		</p:menuitem>
+	</p:tabMenu>
+	
 	<h:form>
 		<h:commandButton action="#{loginHandler.upgrade()}" value="Künstler werden" />
 		<h:commandButton action="#{loginHandler.logout()}" value="#{msg.logout}" />
