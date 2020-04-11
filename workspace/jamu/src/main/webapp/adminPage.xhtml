@@ -13,6 +13,7 @@
 
 </h:head>
 <h:body>
+welcome <a>#{loginHandler.nutzer.vorname}</a>
 	<f:event listener="#{loginHandler.checkLoggedIn}" type="preRenderView" />
 	<f:event listener="#{loginHandler.isAdmin}" type="preRenderView" />
 	

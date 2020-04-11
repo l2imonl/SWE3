@@ -21,6 +21,8 @@ public class Nutzer {
 	private String vorname;
 	private String nachname;
 	private String email;
+	
+	private boolean upgrade;
 
 	public Nutzer() {
 
@@ -90,6 +92,14 @@ public class Nutzer {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public boolean isUpgrade() {
+		return upgrade;
+	}
+
+	public void setUpgrade(boolean upgrade) {
+		this.upgrade = upgrade;
 	}
 
 }

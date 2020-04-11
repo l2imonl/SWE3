@@ -91,6 +91,43 @@ public class LoginHandler implements Serializable{
 		}
 
 	}
+	
+	public String upgrade() {
+		nutzer.setUpgrade(true);
+		try {
+			utx.begin();
+		} catch (NotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		nutzer = em.merge(nutzer);
+		em.persist(nutzer);
+		try {
+			utx.commit();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RollbackException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (HeuristicMixedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (HeuristicRollbackException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "index";
+	}
 
 	public String logout() {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();

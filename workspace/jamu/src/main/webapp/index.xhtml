@@ -14,8 +14,9 @@
 </h:head>
 <h:body>
 	<f:event listener="#{loginHandler.checkLoggedIn}" type="preRenderView" />
-	NUTZER PAGE
+	Willkommen #{loginHandler.nutzer.username}
 	<h:form>
+		<h:commandButton action="#{loginHandler.upgrade()}" value="Künstler werden" />
 		<h:commandButton action="#{loginHandler.logout()}" value="#{msg.logout}" />
 	</h:form>
 </h:body>

@@ -55,12 +55,16 @@
 				<h:outputText value="#{nutzer.passwort}" />
 			</p:column>
 
-			<p:column headerText="#{nutzer.email}" sortBy="#{nutzer.email}">
+			<p:column headerText="#{msg.email}" sortBy="#{nutzer.email}">
 				<h:outputText value="#{nutzer.email}" />
 			</p:column>
 			
 			<p:column headerText="Rolle" sortBy="#{nutzer.rolle}">
 				<h:outputText value="#{nutzer.rolle}" />
+			</p:column>
+			
+			<p:column headerText="Upgrade" sortBy="#{nutzer.upgrade}">
+				<h:outputText value="#{nutzer.upgrade}" />
 			</p:column>
 
 			<p:column>
