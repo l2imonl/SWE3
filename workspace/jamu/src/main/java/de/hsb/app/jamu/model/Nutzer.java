@@ -98,6 +98,16 @@ public class Nutzer {
 		return upgrade;
 	}
 
+	public String showUpgrade() {
+		if(upgrade) {
+			return "X";
+		}
+		else {
+			return"";
+		}
+		
+	}
+
 	public void setUpgrade(boolean upgrade) {
 		this.upgrade = upgrade;
 	}

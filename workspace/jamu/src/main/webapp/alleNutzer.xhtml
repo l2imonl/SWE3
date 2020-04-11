@@ -59,12 +59,12 @@
 				<h:outputText value="#{nutzer.email}" />
 			</p:column>
 			
-			<p:column headerText="Rolle" sortBy="#{nutzer.rolle}">
+			<p:column headerText="#{msg.rolle}" sortBy="#{nutzer.rolle}">
 				<h:outputText value="#{nutzer.rolle}" />
 			</p:column>
 			
-			<p:column headerText="Upgrade" sortBy="#{nutzer.upgrade}">
-				<h:outputText value="#{nutzer.upgrade}" />
+			<p:column headerText="Upgrade?" sortBy="#{nutzer.upgrade}">
+				<h:outputText value="#{nutzer.showUpgrade()}" />
 			</p:column>
 
 			<p:column>
