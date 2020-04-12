@@ -21,3 +21,6 @@ table {
 #player {
 	width: 100%;
 }
+.showAdmin{
+	display:none;
+}

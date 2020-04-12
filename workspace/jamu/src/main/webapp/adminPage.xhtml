@@ -21,20 +21,23 @@
 			<p:menuitem value="Home" outcome="index">
 				<f:param name="i" value="0" />
 			</p:menuitem>
-			<p:menuitem value="#{msg.übersicht}" outcome="adminPage">
+			<p:menuitem value="#{msg.alleNutzer}" outcome="#{nutzerHandler.all()}" rendered="#{loginHandler.showAdmin()}">
 				<f:param name="i" value="1" />
 			</p:menuitem>
-			<p:menuitem value="#{msg.alleNutzer}" outcome="alleNutzer">
+			<p:menuitem value="#{msg.neuerNutzer}" outcome="#{nutzerHandler.neu()}" rendered="#{loginHandler.showAdmin()}">
 				<f:param name="i" value="2" />
 			</p:menuitem>
-			<p:menuitem value="#{msg.neuerNutzer}" outcome="neuerNutzer">
+			<p:menuitem value="#{msg.upgrade}" action="#{loginHandler.upgrade()}" rendered="#{loginHandler.showNutzer()}">
 				<f:param name="i" value="3" />
 			</p:menuitem>
-			<p:menuitem value="#{msg.logout}" action="#{loginHandler.logout()}">
+			<p:menuitem value="#{msg.upload}" outcome="musikUpload" rendered="#{loginHandler.showKünstler()}">
 				<f:param name="i" value="4" />
+			</p:menuitem>
+			<p:menuitem value="#{msg.logout}" action="#{loginHandler.logout()}">
+				<f:param name="i" value="5" />
 			</p:menuitem>
 		</p:tabMenu>
 	</h:form>
-
+<h1>#{msg.willkommen} #{loginHandler.nutzer.username}!</h1>
 </h:body>
 </html>

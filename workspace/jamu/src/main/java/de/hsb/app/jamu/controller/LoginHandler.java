@@ -82,13 +82,44 @@ public class LoginHandler implements Serializable{
 		}
 	}
 
+	public boolean showNutzer() {
+		if (nutzer.getRolle() == Rolle.NUTZER) {
+			return true;
+		}
+		else
+			return false;
+	}
+	
+	public boolean showKünstler() {
+		if (nutzer.getRolle() == Rolle.KÜNSTLER) {
+			return true;
+		}
+		else
+			return false;
+	}
+	
+	public boolean showAdmin() {
+		if (nutzer.getRolle() == Rolle.ADMIN) {
+			return true;
+		}
+		else
+			return false;
+	}
+	
+	public void isKünstler(ComponentSystemEvent cse) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		if (nutzer.getRolle() != Rolle.KÜNSTLER) {
+			context.getApplication().getNavigationHandler().handleNavigation(context, null,
+					"index.xhtml?faces-redirect=true");
+		}
+	}
+	
 	public void isAdmin(ComponentSystemEvent cse) {
 		FacesContext context = FacesContext.getCurrentInstance();
 		if (nutzer.getRolle() != Rolle.ADMIN) {
 			context.getApplication().getNavigationHandler().handleNavigation(context, null,
 					"index.xhtml?faces-redirect=true");
 		}
-
 	}
 	
 	public String upgrade() {
