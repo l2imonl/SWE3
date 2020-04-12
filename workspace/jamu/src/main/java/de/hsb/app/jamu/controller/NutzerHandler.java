@@ -187,7 +187,7 @@ public class NutzerHandler implements Serializable{
 	
 	public String edit() {
 		merkeNutzer = nutzerList.getRowData();
-		return "neuerNutzer?faces-redirect=true"; 
+		return "editNutzer"; 
 	}
 	
 	//Getter u. Setter

@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title><ui:insert name="title">Jamu</ui:insert></title>
+	<h:outputStylesheet name="primeicons/primeicons.css"
+		library="primefaces" />
+
+</h:head>
+<h:body>
+	<h:outputStylesheet name="stylesheets/customstyle.css" />
+	<f:event listener="#{loginHandler.checkLoggedIn}" type="preRenderView" />
+	<f:event listener="#{loginHandler.isAdmin}" type="preRenderView" />
+
+	<div id="content">
+		<ui:insert name="content">
+			<h:form>
+				<h:panelGrid var="nutzer" value="#{nutzer}" columnes="2"
+					headerClass="header" footerClass="footer">
+
+					<h:outputLabel value="#{msg.vorname}" for="vorname" />
+					<h:panelGroup>
+						<h:inputText id="vorname" required="true"
+							requiredMessage="Eingabe fehlt"
+							value="#{nutzerHandler.merkeNutzer.vorname}" />
+						<h:message for="vorname" styleClass="message" />
+					</h:panelGroup>
+
+					<h:outputLabel value="#{msg.nachname}" for="nachname" />
+					<h:panelGroup>
+						<h:inputText id="nachname" required="true"
+							requiredMessage="Eingabe fehlt"
+							value="#{nutzerHandler.merkeNutzer.nachname}" />
+						<h:message for="nachname" styleClass="message" />
+					</h:panelGroup>
+
+					<h:outputLabel value="#{msg.nutzername}" for="nutzername" />
+					<h:panelGroup>
+						<h:inputText id="nutzername" required="true"
+							requiredMessage="Eingabe fehlt"
+							value="#{nutzerHandler.merkeNutzer.username}" />
+						<h:message for="nutzername" styleClass="message" />
+					</h:panelGroup>
+
+					<h:outputLabel value="#{msg.passwort}" for="passwort" />
+					<h:panelGroup>
+						<h:inputText id="passwort" required="true"
+							requiredMessage="Eingabe fehlt"
+							value="#{nutzerHandler.merkeNutzer.passwort}" />
+						<h:message for="passwort" styleClass="message" />
+					</h:panelGroup>
+
+					<h:outputLabel value="#{msg.email}" for="email" />
+					<h:panelGroup>
+						<h:inputText id="email" value="#{nutzerHandler.merkeNutzer.email}"
+							required="true" label="Email"
+							validatorMessage="#{nutzerHandler.merkeNutzer.email} is not valid">
+							<f:validateRegex
+								pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+						</h:inputText>
+						<p:message for="email" />
+					</h:panelGroup>
+
+					<h:outputLabel value="#{msg.rolle}" for="rolle" />
+					<h:panelGroup>
+						<h:selectOneMenu id="rolle" required="true"
+							requiredMessage="Eingabe fehlt"
+							value="#{nutzerHandler.merkeNutzer.rolle}">
+							<f:selectItems var="form" value="#{nutzerHandler.rolelValues}" />
+						</h:selectOneMenu>
+						<h:message for="rolle" styleClass="message" />
+					</h:panelGroup>
+
+					<p:commandButton action="#{nutzerHandler.speichern()}"
+						value="#{msg.speichern}" update="@form" />
+				</h:panelGrid>
+			</h:form>
+		</ui:insert>
+	</div>
+	<div class="footer"></div>
+</h:body>
+</html>
