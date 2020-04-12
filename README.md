@@ -11,6 +11,11 @@ und unter handlers folgendes:
 
     <file name="welcome-content" path="${jboss.home.dir}/welcome-content"/>
     <file name="musik" path="${jboss.server.data.dir}/musikOrdner" directory-listing="true"/>
+    
+## Persistent Admin Login:
+	Admin
+	SafeAsShit
+	
 
 ## Verwendete Bibliotheken:
 	https://github.com/mpatric/mp3agic
