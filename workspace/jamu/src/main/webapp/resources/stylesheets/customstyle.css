@@ -1,0 +1,23 @@
+@charset "ISO-8859-1";
+body {
+	background-color : #f8f9fc;
+}
+.ui-datatable {
+	margin-left: 1.5rem;
+	margin-right: 1.5rem;
+	box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15) !important
+}
+.ui-fileupload {
+	margin-left: 1.5rem;
+	margin-right: 1.5rem;
+	box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15) !important
+}
+
+table {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#player {
+	width: 100%;
+}

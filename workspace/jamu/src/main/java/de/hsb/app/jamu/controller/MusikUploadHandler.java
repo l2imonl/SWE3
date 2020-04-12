@@ -38,6 +38,7 @@ import de.hsb.app.jamu.model.Musik;
 @ManagedBean
 @ViewScoped
 public class MusikUploadHandler implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private DataModel<Musik> musikList;
 	private Musik neueMusik;
 	
@@ -82,12 +83,11 @@ public class MusikUploadHandler implements Serializable {
 	}
 
 	public void handleFileUpload(FileUploadEvent event) {
-		//Ordner erstellen, falls nicht vorhanden
-		musikOrdner.mkdirs();
-		
+		// Metadaten
 		Mp3File mp3file = null;
 		
 		this.musikDatei = event.getFile();
+		musikOrdner.mkdirs();
 		String musikDateiName = event.getFile().getFileName();
 		String zielDateiPfad = musikOrdner + File.separator + musikDateiName;
 		
@@ -134,6 +134,9 @@ public class MusikUploadHandler implements Serializable {
 	}
 	
 	public void metaDatenHandler(Mp3File mp3file, String musikDateiName) {
+		neueMusik.setLaenge(convertLongToString(mp3file.getLengthInSeconds()));
+		neueMusik.setJsWebPfad("/musik/" + musikDateiName);
+		
 		if (mp3file.hasId3v2Tag()) {
 			ID3v2 id3v2Tag = mp3file.getId3v2Tag();
 			neueMusik.setTitel(id3v2Tag.getTitle());
@@ -153,7 +156,14 @@ public class MusikUploadHandler implements Serializable {
 			neueMusik.setKuenstler(null);
 			neueMusik.setAlbum(null);
 			}
-		neueMusik.setJsWebPfad("/musik/" + musikDateiName);
+	}
+	
+	public String convertLongToString (long laenge) {
+		long min = laenge / 60;
+		long sek = laenge % 60;
+		String laengeInMin = Long.toString(min) + ":";
+		String laengeInSek = sek < 9 ? "0" + Long.toString(sek) : Long.toString(sek);
+		return laengeInMin + laengeInSek;
 	}
 	
 	// Getter und Setter

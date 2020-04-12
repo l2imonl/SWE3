@@ -10,11 +10,34 @@
 		<title>Musik Upload</title>
 	</h:head>
 	<h:body>
+	<h:outputStylesheet name="stylesheets/customstyle.css" />
 	<f:event listener="#{loginHandler.checkLoggedIn}" type="preRenderView" />
-		<h:form>
-			<p:fileUpload value="#{musikUploadHandler.trackFile}" mode="advanced" 
-			fileUploadListener="#{musikUploadHandler.handleFileUpload}" multiple="true" update="messages" allowTypes="/(\.|\/)(mp3)$/"/>
-			<p:growl id="messages" showDetail="true" />
-		</h:form>
-	</h:body>
+
+	<h:form>
+		<p:tabMenu activeIndex="#{param.i}">
+			<p:menuitem value="Home" outcome="index">
+				<f:param name="i" value="0" />
+			</p:menuitem>
+			<p:menuitem value="#{msg.übersicht}" outcome="adminPage">
+				<f:param name="i" value="0" />
+			</p:menuitem>
+			<p:menuitem value="#{msg.upgrade}" action="#{loginHandler.upgrade()}">
+				<f:param name="i" value="0" />
+			</p:menuitem>
+			<p:menuitem value="#{msg.upload}" outcome="musikUpload">
+				<f:param name="i" value="0" />
+			</p:menuitem>
+			<p:menuitem value="#{msg.logout}" action="#{loginHandler.logout()}">
+				<f:param name="i" value="0" />
+			</p:menuitem>
+		</p:tabMenu>
+	</h:form>
+	<h:form>
+		<p:fileUpload value="#{musikUploadHandler.trackFile}" mode="advanced"
+			fileUploadListener="#{musikUploadHandler.handleFileUpload}"
+			multiple="true" update="messages" allowTypes="/(\.|\/)(mp3)$/"
+			sizeLimit="9000000" fileLimit="5" label="#{msg.filepicker}" />
+		<p:growl id="messages" showDetail="true" />
+	</h:form>
+</h:body>
 </html>

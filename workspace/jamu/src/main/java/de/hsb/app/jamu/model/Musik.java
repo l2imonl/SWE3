@@ -18,6 +18,7 @@ public class Musik {
 	private String kuenstler;
 	private String album;
 	private String jsWebPfad;
+	private String laenge;
 
 	public Musik() {
 
@@ -29,8 +30,9 @@ public class Musik {
 		this.kuenstler = kuenstler;
 		this.album = album;
 		this.jsWebPfad = jsWebPfad;
+		this.laenge = laenge;
 	}
-
+	
 	// Getter und Setter
 	public Integer getId() {
 		return id;
@@ -70,5 +72,13 @@ public class Musik {
 
 	public void setJsWebPfad(String jsWebPfad) {
 		this.jsWebPfad = jsWebPfad;
+	}
+	
+	public String getLaenge() {
+		return laenge;
+	}
+
+	public void setLaenge(String laenge) {
+		this.laenge = laenge;
 	}
 }

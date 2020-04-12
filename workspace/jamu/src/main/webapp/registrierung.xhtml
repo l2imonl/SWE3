@@ -13,13 +13,14 @@
 
 </h:head>
 <h:body>
+	<h:outputStylesheet name="stylesheets/customstyle.css" />
 	<h:form>
-		<h:panelGrid var="nutzer" value="#{nutzer}" columnes="2"
+		<p:panelGrid var="nutzer" value="#{nutzer}" columns="2"
 			headerClass="header" footerClass="footer">
 
 			<h:outputLabel value="#{msg.nutzername}" for="nutzername" />
 			<h:panelGroup>
-				<h:inputText id="nutzername" required="true"
+				<p:inputText id="nutzername" required="true"
 					requiredMessage="Eingabe fehlt"
 					value="#{registerHandler.neuerNutzer.username}" />
 				<h:message for="vorname" styleClass="message" />
@@ -27,7 +28,7 @@
 
 			<h:outputLabel value="#{msg.passwort}" for="passwort" />
 			<h:panelGroup>
-				<h:inputText id="passwort" required="true"
+				<p:inputText id="passwort" required="true"
 					requiredMessage="Eingabe fehlt"
 					value="#{registerHandler.neuerNutzer.passwort}" />
 				<h:message for="passwort" styleClass="message" />
@@ -35,7 +36,7 @@
 
 			<h:outputLabel value="#{msg.vorname}" for="vorname" />
 			<h:panelGroup>
-				<h:inputText id="vorname" required="true"
+				<p:inputText id="vorname" required="true"
 					requiredMessage="Eingabe fehlt"
 					value="#{registerHandler.neuerNutzer.vorname}" />
 				<h:message for="vorname" styleClass="message" />
@@ -43,7 +44,7 @@
 
 			<h:outputLabel value="#{msg.nachname}" for="nachname" />
 			<h:panelGroup>
-				<h:inputText id="nachname" required="true"
+				<p:inputText id="nachname" required="true"
 					requiredMessage="Eingabe fehlt"
 					value="#{registerHandler.neuerNutzer.nachname}" />
 				<h:message for="nachname" styleClass="message" />
@@ -51,21 +52,23 @@
 
 			<h:outputLabel value="#{msg.email}" for="email" />
 			<h:panelGroup>
-				<h:inputText id="email" value="#{registerHandler.neuerNutzer.email}"
+				<p:inputText id="email" value="#{registerHandler.neuerNutzer.email}"
 					required="true" label="Email"
 					validatorMessage="#{registerHandler.neuerNutzer.email} is not valid">
 					<f:validateRegex
 						pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
-				</h:inputText>
+				</p:inputText>
 				<p:message for="email" />
-			</h:panelGroup>		
-		</h:panelGrid>
-		<p:commandButton action="#{registerHandler.register()}"
+			</h:panelGroup>
+			<h:panelGroup />
+			<p:commandButton action="#{registerHandler.register()}"
 				value="#{msg.registrieren}" />
+		</p:panelGrid>
 	</h:form>
-
 	<h:form>
-		<h:commandButton action="login" value="#{msg.abbrechen}" />
+		<p:panelGrid id="grid" columns="1">
+			<p:commandButton action="login" value="#{msg.abbrechen}" />
+		</p:panelGrid>
 	</h:form>
 </h:body>
 </html>

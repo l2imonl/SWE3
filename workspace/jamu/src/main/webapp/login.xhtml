@@ -12,29 +12,31 @@
 		library="primefaces" />
 
 </h:head>
-
-<h:form>
-	<p:panelGrid id="grid" columns="2">
-		<f:facet name="header">Anmeldung</f:facet>
-		<p:outputLabel value="#{msg.nutzername}:" for="username" />
-		<h:panelGroup>
-			<p:inputText id="username" required="true"
-				value="#{loginHandler.username}" />
-			<p:message for="username" styleClass="message" />
-		</h:panelGroup>
-		<p:outputLabel value="#{msg.passwort}:" for="passwort" />
-		<h:panelGroup>
-			<p:password id="passwort" required="true"
-				value="#{loginHandler.passwort}" />
-			<p:message for="passwort" styleClass="message" />
-		</h:panelGroup>
-		<h:panelGroup />
-		<p:commandButton action="#{loginHandler.login}" value="Login" />
-	</p:panelGrid>
-
-</h:form>
-
-<h:form>
-	<h:commandButton action="registrierung" value="#{msg.registrieren}" />
-</h:form>
+<h:body>
+<h:outputStylesheet name="stylesheets/customstyle.css" />
+	<h:form>
+		<p:panelGrid id="grid" columns="2">
+			<f:facet name="header">Anmeldung</f:facet>
+			<p:outputLabel value="#{msg.nutzername}:" for="username" />
+			<h:panelGroup>
+				<p:inputText id="username" required="true"
+					value="#{loginHandler.username}" />
+				<p:message for="username" styleClass="message" />
+			</h:panelGroup>
+			<p:outputLabel value="#{msg.passwort}:" for="passwort" />
+			<h:panelGroup>
+				<p:password id="passwort" required="true"
+					value="#{loginHandler.passwort}" />
+				<p:message for="passwort" styleClass="message" />
+			</h:panelGroup>
+			<h:panelGroup/>
+				<p:commandButton action="#{loginHandler.login}" value="Login" />
+		</p:panelGrid>
+	</h:form>
+	<h:form>
+		<p:panelGrid id="grid" columns="1">
+			<p:commandButton action="registrierung" value="#{msg.registrieren}" />
+		</p:panelGrid>
+	</h:form>
+</h:body>
 </html>
